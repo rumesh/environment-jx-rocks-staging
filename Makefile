@@ -12,7 +12,7 @@ build: clean
 	helm dependency build ${DIR}
 	helm lint ${DIR}
 
-install: 
+install:
 	helm upgrade ${NAMESPACE} ${DIR} --install --namespace ${NAMESPACE} --debug
 
 delete:
@@ -21,3 +21,6 @@ delete:
 clean:
 
 
+test:
+	ADDRESS=`kubectl -n jx-staging get ing go-demo-6 \
+	-o jsonpath="{.spec.rules[0].host}"` go test -v
